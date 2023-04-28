@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>blog</title>
+		<link rel="shortcut icon" href="../image/blog.ico" />
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#background {
+				height: 100vh;
+				width: 100vw;
+				/* max-width: 1536px;
+				min-width: 400px; */
+				/* background: black; */
+				/* display: flex;
+				flex-direction: column;
+				justify-content: space-between; */
+				/* background-image: url(image/bgc/1.jpg);
+				background-size: 100%;*/
+			}
+			#navigation_bar{
+				width: 100vw;
+				height: 10vh;
+				/* background-color: antiquewhite; */
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+			}
+			#icon_name_background{
+				width: 30vw;
+				height: 10vh;
+				/* background-color: aquamarine; */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#icon_name{
+				width: 27vw;
+				height: 8vh;
+				/* background-color: blueviolet; */
+				display: flex;
+				
+			}
+			#icon{
+				height: 8vh;
+				width: 8vh;
+				/* background-color: chocolate; */
+			}
+			#cube{
+				transform-origin: center center 0;
+				transform-style: preserve-3d;
+				perspective: 1000px;
+				width: 8vh;
+				height: 8vh;
+				animation: rotate 10s infinite linear;
+				/* background-color: chartreuse; */
+				/*overflow: hidden;*/
+			}
+			.cube_side{
+				position: absolute;
+				left: 1.6vh;
+				top: 1.6vh;
+				transform-style: preserve-3d;
+				position: absolute;
+				list-style:none;
+				width: 4.8vh;
+				height: 4.8vh;
+				background-image: url("../image/icon.png");
+				background-size: 100%;
+			}
+			#front{
+				transform: translateZ(2.4vh);
+				background-color: red;
+			}
+			#back{
+				transform: translateZ(-2.4vh);
+				background-color: blue;
+			}
+			#left{
+				transform-origin: right;
+				transform: translateZ(-2.4vh) translateX(-100%) rotateY(90deg);
+				background-color: green;
+			}
+			#right{
+				transform-origin: left;
+				transform: translateZ(-2.4vh) translateX(100%) rotateY(-90deg);
+				background-color: orange;
+			}
+			#top{
+				transform-origin: top;
+				transform: translateZ(-2.4vh) translateY(100%) rotateX(90deg);
+				background-color: purple;
+			}
+			#bottom{
+				transform-origin: bottom;
+				transform: translateZ(-2.4vh) translateY(-100%) rotateX(-90deg);
+				/*animation: rotate 10s infinite;*/
+				background-color: yellow;
+			}
+			#name{
+				height: 8vh;
+				width: calc(27vw - 8vh);
+				/* background-color: crimson; */
+				display: flex;
+				align-items: center;
+				justify-content: left;
+			}
+			#Name{
+				text-align: center;
+				font-size: 2em;
+				/* background-color: aqua; */
+			}
+			#navigation{
+				width: 60vw;
+				height: 10vh;
+				/* background-color: purple; */
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				/* background-color: rgba(128,0,128,0.1); */
+			}
+			.label{
+				font-size: 2em;
+				text-align: center;
+				width: 20%;
+				height: auto;
+				/* background-color: aqua; */
+			}
+			.label:hover {
+				background-color: rgba(128,0,128,0.5);
+				animation: lable_up 1s forwards;
+			}
+			#image_content{
+				width: 100vw;
+				height: 90vh;
+				/* background-color: greenyellow; */
+				transform-style: preserve-3d;
+				perspective: 2px;
+				overflow-x: hidden;
+				overflow-y: scroll;
+				/* display: flex;
+				justify-content: center; */
+			}
+			#content{
+				position: relative;
+				top: 0%;
+				left: 15%;
+				width: 70vw;
+				font-size: 1.5em;
+				transform-style: preserve-3d;
+				/* perspective: 50px; */
+				background-color: rgba(135,206,235,0.6);
+			}
+			#image{
+				position: absolute;
+				top: 0%;
+				width: 100%;
+				height: 100%;
+				transform-style: preserve-3d;
+				/* perspective: 50px; */
+				/* background-color: darkcyan; */
+				z-index: 100;
+			}
+			.image{
+				position: relative;
+				font-size: 2em;
+				text-align: center;
+			}
+			#image1{
+				top: -5%;
+				left: -60%;
+				width: 65vw;
+				height: 35vw;
+				transform: rotateZ(-6deg) translateZ(-2px) scale(1.2);
+			}
+			#image2{
+				top: -5%;
+				left: 30%;
+				width: 70vw;
+				height: 40vw;
+				transform: rotateZ(5deg) translateZ(-1px) scale(1.1);
+			}
+			#image3{
+				top: 0%;
+				left: -80%;
+				width: 70vw;
+				height: 40vw;
+				transform: rotateZ(3deg) translateZ(-3px) scale(1.3);
+			}
+			#image4{
+				top: -5%;
+				left: 50%;
+				width: 75vw;
+				height: 40vw;
+				transform: rotateZ(-6deg) translateZ(-4px) scale(1.4);
+			}
+			#image5{
+				top: 0%;
+				left: -120%;
+				width: 100vw;
+				height: 50vw;
+				transform: rotateZ(1deg) translateZ(-5px) scale(1.5);
+			}
+			#image6{
+				top: -8%;
+				left: 50%;
+				width: 70vw;
+				height: 40vw;
+				transform: rotateZ(-2deg) translateZ(-1px) scale(1.1);
+			}
+			@keyframes lable_up{
+				0%{height: 50%;}
+				100%{height: 100%;}
+			}
+			@keyframes rotate{
+				0%{transform: rotateY(0deg) rotateX(0deg);}
+				100%{transform: rotateY(360deg) rotateX(360deg);}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="background">
+			<div id="navigation_bar">
+				<div id = "icon_name_background">
+					<div id = "icon_name">
+						<div id = "icon">
+							<ul id="cube">
+								<li id="front" class="cube_side"></li>
+								<li id="back" class="cube_side"></li>
+								<li id="left" class="cube_side"></li>
+								<li id="right" class="cube_side"></li>
+								<li id="top" class="cube_side"></li>
+								<li id="bottom" class="cube_side"></li>
+							</ul>
+						</div>
+						<div id = "name">
+							<div id = "Name">
+								THELONER的博客
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id = "navigation">
+					<div class = "label" onclick="window.open('../index.html','_self')">首页</div>
+					<div class = "label" onclick="window.open('../note.html','_self')">题解</div>
+					<div class = "label" onclick="window.open('../logs.html','_self')">日志</div>
+					<div class = "label" onclick="window.open('../link.html','_self')">友链</div>
+					<div class = "label" onclick="window.open('../about.html','_self')">关于</div>
+				</div>
+			</div>
+			<div id="image_content">
+				<div id="content">
+					<div id = image>
+						<div id="image1" class="image"></div>
+						<div id="image2" class="image"></div>
+						<div id="image3" class="image"></div>
+						<div id="image4" class="image"></div>
+						<div id="image5" class="image"></div>
+						<div id="image6" class="image"></div>
+					</div>
+					<h1>洛谷3205 合唱队</h1>
+						<h2>题目描述</h2>
+						<p>为了在即将到来的晚会上有更好的演出效果，作为 AAA 合唱队负责人的小 A 需要将合唱队的人根据他们的身高排出一个队形。假定合唱队一共 <em>n</em> 个人，第 <em>i</em> 个人的身高为 ℎ<sub>i</sub> 米（1000≤h<sub>i</sub>≤2000），并已知任何两个人的身高都不同。假定最终排出的队形是 <em>A</em> 个人站成一排，为了简化问题，小 A 想出了如下排队的方式：他让所有的人先按任意顺序站成一个初始队形，然后从左到右按以下原则依次将每个人插入最终棑排出的队形中：</p>
+						<p>第一个人直接插入空的当前队形中。</p>
+						<p>对从第二个人开始的每个人，如果他比前面那个人高（ℎ 较大），那么将他插入当前队形的最右边。如果他比前面那个人矮（ℎ 较小），那么将他插入当前队形的最左边。</li>
+						<p>当 <em>n</em> 个人全部插入当前队形后便获得最终排出的队形。</p>
+						<p>例如，有 66 个人站成一个初始队形，身高依次为 1850,1900,1700,1650,1800,1750，
+						那么小 A 会按以下步骤获得最终排出的队形：</p><br>
+						<p>1850。</p>
+						<p>1850,1900， 因为 1900&gt;1850。</p>
+						<p>1700,1850,1900， 因为 1700&lt;1900。</p>
+						<p>1650,1700,1850,1900， 因为 1650&lt;1700。</p>
+						<p>1650,1700,1850,1900,1800， 因为 1800&gt;1650。</p>
+						<p>1750,1650,1700,1850,1900,1800， 因为 1750&lt;1800。</p>
+						<p>因此，最终排出的队形是 1750,1650,1700,1850,1900,1800。</p>
+						<p>小 A 心中有一个理想队形，他想知道多少种初始队形可以获得理想的队形。</p>
+						<p>请求出答案对 19650827 取模的值。</p>
+						<h2>输入格式</h2>
+						<p>第一行一个整数 <em>n</em>。
+						第二行 <em>n</em> 个整数，表示小 A 心中的理想队形。</p>
+						<h2>输出格式</h2>
+						<p>输出一行一个整数，表示答案 mod19650827 的值。</p>
+						<h2>输入输出样例</h2>
+						<p><strong>输入 #1</strong></p>
+						<pre><code>4
+1701 1702 1703 1704
+						</code></pre>
+						<p><strong>输出 #1</strong></p>
+						<pre><code>8
+						</code></pre>
+						<h2>说明/提示</h2>
+						<p>对于 30% 的数据，n<em>≤100。
+						对于 100% 的数据，</em>n<em>≤1000，1000≤</em>h<sub>i</sub>≤2000。</p>
+						<h1>题解</h1>
+						<p>在做题之前，我们先来看看dp三大要素：</p>
+						<p>状态转移数组</p>
+						<p>初始化</p>
+						<p>状态转移方程</p>
+						<p>然后，我们先来举一个小例子来看一下：
+						1 2 3 4</p>
+						<p>对于这种理想队伍我们应该怎么求原队列呢，dp往往是由一个个小状态累加成大的状态的对吧，所以我们不难想到从一个个小的区间开始一个一个的把下一个元素排进去，所以一开始，我们的最小区间则是单个元素，对吧，所以这样我们的初始化就有了，当区间内只有一个元素时，它的原队列就只可能有一种，就是它自己，一种。</p>
+						<p><code>dp[i][i] = 1</code></p>
+						<p>然后我们再来看怎么把下一个元素放进去呢，比如：</p>
+						<p>现区间为1，我们把2包括进去，这时候，我们的区间就变成了[1,2]。</p>
+						<p>在这个区间中我们不难发现，对于这个队列，我们最后一个放的元素可能是1，也可能是2。</p>
+						<p>首先我们来构建一个dp数组，我们定义dp[1] [2]为区间1 ~ 2中最后一个放入的元素为2，dp[2] [1]为区间1~ 2中最后一个放入的元素为2。</p>
+						<p>那么当我们最后一个放1时，那么它肯定从上一个区间的第一个元素或最后一个元素后面放进去，并且肯定比他们都小，上一个区间也就是[2]的第一个元素为2，因为2比1大，所以1就可以从区间[2] [2] (注意，这里是区间[2] [1]从前面去掉1，因为我们是从上个区间先放第一个元素的后面再放这个元素)的后面放入。</p>
+						<p>转移方程为： if (h<sub>i</sub> &lt; h<sub>begin</sub>)：<code>dp[2] [1]  += dp[end] [i + 1];</code> 即：dp[2] [2]。</p>
+						<p>可这时我们发现上一个区间的最后的一个元素也是2，也比1大， 1也可以从这里[2] [2] (这里是从[1] [2]从后面去掉1，因为我们是从上个区间先放第最后一个元素的后面再放这个元素)放入。</p>
+						<p>但很明显这和第一种是同一种情况是吧，所以我们这里就可以加上一个限制条件：( if (h<sub>i</sub> &lt; h<sub>end</sub> &amp;&amp; h<sub>begin</sub> != h<sub>end</sub>) )就行。</p>
+						<p>转移方程为： if (h<sub>i</sub> &lt; h<sub>end</sub> &amp;&amp; h<sub>begin</sub> != h<sub>end</sub>): <code>dp[2] [1] += dp[i + 1] [end];</code>即：dp[2] [2]。</p>
+						<p>当我们最后一个放区间最后一个元素时2时，那么它肯定从上一个区间的第一个元素或最后一个元素后面放进去，并且肯定比他们都大，因为上一个区间[1]的第一个元素为1，因为2大于1，所以2可以从[1] [1] (这里是区间[2] [1]去掉2)放入：</p>
+						<p>转移方程为：if (h<sub>i</sub> &gt; h<sub>begin</sub>) <code>dp[1] [2] += dp[i - 1] [begin];</code>即：dp[1] [1];</p>
+						<p>上个区间的最后最后一个元素也是1，也可以从[1] [1] (这里是区间[1] [2]去掉2)放进去,不过同理，这里同样重复了，需要加个判断条件：h<sub>begin</sub> != h<sub>end</sub></p>
+						<p>转移方程为：if(h<sub>i</sub> &gt; h<sub>end</sub> &amp;&amp; h<sub>begin</sub> != h<sub>end</sub>)<code>dp[1] [2] += dp[begin] [i - 1];</code>即：dp[1] [1];</p>
+						<p>这样我们的转移方程也有了。我们只需要不断枚举区间长度和区间左端点就可以模拟出所有情况了。</p>
+						<p>我们来试试区间[1, 3]的情况吧。</p>
+						<p>当最后一个放入的是3时：</p>
+						<p>因为h<sub>3</sub> &gt; h<sub>1</sub>，所以，dp[1] [3] += dp[2] [1];</p>
+						<p>因为h<sub>3</sub> &gt; h<sub>2</sub>，所以，dp[1] [3] += dp[1] [2];</p>
+						<p>当最后一个放入的是1时：</p>
+						<p>因为h<sub>1</sub> &lt; h<sub>2</sub>，所以，dp[3] [1] += dp[3] [2];</p>
+						<p>因为h<sub>1</sub> &lt; h<sub>3</sub>，所以，dp[3] [1] += dp[2] [3];</p>
+						<p>你可以自己试着模拟一下区间[1,4]的情况；</p>
+						<p>当然不要忘了mod那个质数哦，不然会爆数据范围的；</p>
+						<p>下面附上代码：</p>
+						<pre><code class='language-c++' lang='c++'>
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+						
+using namespace std;
+						
+const int N = 1010;
+const int mod = 19650827;
+						
+int n;
+int num[N];
+int dp[N][N];
+						
+int main()
+{
+cin&gt;&gt;n;
+for (int i = 1; i &lt;= n; i ++){
+cin&gt;&gt;num[i];
+dp[i][i] = 1;
+}    
+for (int i = 2; i &lt;= n; i ++){
+for (int j = 1; i + j - 1 &lt;= n; j ++){
+int k = i + j - 1;
+if (num[j] &lt; num[j + 1])           dp[k][j] += dp[k][j + 1];
+if (num[j] &lt; num[k] &amp;&amp; j != k - 1) dp[k][j] += dp[j + 1][k];
+if (num[k] &gt; num[k - 1])           dp[j][k] += dp[j][k - 1];
+if (num[k] &gt; num[j] &amp;&amp; j != k - 1) dp[j][k] += dp[k - 1][j];
+dp[j][k] %= mod, dp[k][j] %= mod;
+}
+}
+cout&lt;&lt;(dp[1][n] + dp[n][1]) % mod;
+return 0;
+}
+						</code></pre>
+						<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.js"></script>
+		<script>
+			let images = document.getElementsByClassName("image");
+			let bgc = document.getElementById("background");
+			let min1 = 1,max1= 19, min2 = 1, max2 = 4;
+			let num = new Array();
+
+			let rdm = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
+			bgc.style.background = "url(../image/bgc/" + rdm + ".jpg) no-repeat 0 center";
+			for (let i = 0; i <= 19; i ++ )num[i] = 0;
+			for (let i = 0; i < images.length; i ++){
+				let rdm1 = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
+				if (num[rdm1] === 0){
+					images[i].style.background = "url(../image/" + rdm1+ ".jpeg) no-repeat 0 center";
+					num[rdm1] = 1;
+				}else{
+					i --;
+				}
+			}
+		</script>
+	</body>
+
+</html>
