@@ -154,7 +154,31 @@
 				font-size: 1.5em;
 				transform-style: preserve-3d;
 				/* perspective: 50px; */
-				background-color: rgba(135,206,235,0.6);
+				/* background-color: rgba(135,206,235,0.6); */
+			}
+			#cover{
+				/* background-color: aqua; */
+				width: 70vw;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			#introduce{
+				/* background-color: rgb(85, 0, 255); */
+				font-size: 2.7em;
+				text-align: center;
+			}
+			#point{
+				background-color: aqua;
+				position: relative;
+				top: 25%;
+			}
+			#cover_show{
+				width: 70vw;
+				height: 100vh;
+				/* background-color: blueviolet; */
 			}
 			#image{
 				position: absolute;
@@ -221,6 +245,14 @@
 				0%{transform: rotateY(0deg) rotateX(0deg);}
 				100%{transform: rotateY(360deg) rotateX(360deg);}
 			}
+			@keyframes cover_hide{
+				0%{opacity: 1; color: black;}
+				100%{opacity: 0; color: purple;}
+			}
+			@keyframes cover_bloke{
+				0%{opacity: 0; color: purple;}
+				100%{opacity: 1; color: black;}
+			}
 		</style>
 	</head>
 
@@ -264,14 +296,25 @@
 						<div id="image5" class="image"></div>
 						<div id="image6" class="image"></div>
 					</div>
-					
+					<div id = "cover">
+						<div id = "introduce">
+							THELONER的博客
+						</div>
+						<img id = "point" src="image/sth/point.jpg" alt="等待中...">
+					</div>
+					<div id = "cover_show">
+
+					</div>
 				</div>
 			</div>
 		</div>
 		<script>
 			let images = document.getElementsByClassName("image");
 			let bgc = document.getElementById("background");
-			let min1 = 1,max1= 19, min2 = 1, max2 = 4;
+			let image_content = document.getElementById("image_content");
+			let cover = document.getElementById("cover");
+			let point = document.getElementById("point");
+			let min1 = 1,max1= 19, min2 = 1, max2 = 4, scroll_Top = 0, scroll_adjust = 1;
 			let num = new Array();
 
 			let rdm = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
@@ -286,6 +329,30 @@
 					i --;
 				}
 			}
+			image_content.onscroll =  function (){
+				let scroll_top = image_content.scrollTop;
+				if (scroll_top > scroll_Top){
+					if (scroll_adjust){
+						scroll_adjust = 0;
+					}else{
+						cover.style.animation = "cover_hide 2s"
+						cover.style.opacity = 0;
+						scroll_adjust = 1;
+					}
+				}else{
+					if (scroll_adjust){
+						scroll_adjust = 0;
+					}else{
+						cover.style.animation = "cover_bloke 2s"
+						cover.style.opacity = 1;
+						scroll_adjust = 1;
+					}
+				}
+				scroll_Top = scroll_top;
+			}
+			// point.onclick = function(){
+			// 	scrollTo
+			// }
 		</script>
 	</body>
 
