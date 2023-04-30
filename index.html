@@ -159,7 +159,7 @@
 			#cover{
 				/* background-color: aqua; */
 				width: 70vw;
-				height: 100vh;
+				height: 90vh;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -171,14 +171,33 @@
 				text-align: center;
 			}
 			#point{
-				background-color: aqua;
+				/* background-color: aqua; */
 				position: relative;
 				top: 25%;
 			}
 			#cover_show{
 				width: 70vw;
-				height: 100vh;
+				height: 90vh;
 				/* background-color: blueviolet; */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#typing{
+				animation: typing 10s steps(42, end) infinite, order 0.5s steps(42, end) infinite;
+				overflow: hidden;
+				border-right: 2px solid transparent;
+				font-size: 1.5em;
+				height: 1.5em;
+				width: 70vw;
+			}
+			#synopsis{
+				background-image: -webkit-linear-gradient(left, purple,blue,green,purple,blue,green,purple);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				-webkit-background-size: 200% 100%;
+				text-shadow: 2px 2px 2px purple;
+				animation: shining 4s infinite linear;
 			}
 			#image{
 				position: absolute;
@@ -253,6 +272,19 @@
 				0%{opacity: 0; color: purple;}
 				100%{opacity: 1; color: black;}
 			}
+			@keyframes shining {
+				0%{ background-position: 0 0;}
+				100% { background-position: -100% 0;}
+			}
+			@keyframes typing {
+				0%{ width: 0;}
+				70%{ width: 68vw;}
+				100%{ width: 0;}
+			}
+			@keyframes order{
+				0%{ border-color: transparent; }
+				50%{ border-color: currentColor;}
+			}
 		</style>
 	</head>
 
@@ -303,7 +335,7 @@
 						<img id = "point" src="image/sth/point.jpg" alt="等待中...">
 					</div>
 					<div id = "cover_show">
-
+						<div id = "typing" ><div id = "synopsis">我是一个大学牲，兼吃货，兼社恐，同时在这里分享生活和技术</div></div>
 					</div>
 				</div>
 			</div>
@@ -350,9 +382,12 @@
 				}
 				scroll_Top = scroll_top;
 			}
-			// point.onclick = function(){
-			// 	scrollTo
-			// }
+			point.onclick = function(){
+				image_content.scrollTo({
+					top: 671,
+					behavior: "smooth"
+				});
+			}
 		</script>
 	</body>
 
