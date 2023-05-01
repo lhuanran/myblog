@@ -11,6 +11,9 @@
 				padding: 0;
 				margin: 0;
 			}
+			body{
+				overflow: hidden;
+			}
 			#background {
 				height: 100vh;
 				width: 100vw;
@@ -181,7 +184,7 @@
 			#cover_show{
 				width: 70vw;
 				height: 90vh;
-				background-color: rgb(255, 255, 255, 0.3);
+				background-color: rgba(248, 170, 213, 0.3);
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -346,8 +349,10 @@
 			let images = document.getElementsByClassName("image");
 			let bgc = document.getElementById("background");
 			let image_content = document.getElementById("image_content");
+			let content = document.getElementById("content");
 			let cover = document.getElementById("cover");
 			let point = document.getElementById("point");
+			let navigation_bar = document.getElementById("navigation_bar");
 			let min1 = 1,max1= 19, min2 = 1, max2 = 4, scroll_Top = 0, scroll_adjust = 1;
 			let num = new Array();
 			let shadowcolor = ["purple", "green", "blue", "orange", "yellow", "aqua", "gold", "goldyellow", "grey", "marron"];
@@ -391,26 +396,27 @@
 					behavior: "smooth"
 				});
 			}
-			bgc.onmousemove = function () {
-				let min2 = 0,max1= 9;
+			image_content.onmousemove = function () {
+				let min2 = 0,max2 = 9;
 				let rdm2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
-				let div = document.createElement('div');
-				let o = 15;
+				let Div = document.createElement("div");
+				let o = 10;
 				let x = event.clientX;
 				let y = event.clientY;
-				div.style.position = "absolute";
-				div.style.left = x + "px";
-				div.style.top = y + "px";
-				div.style.width = 13 + "px";
-				div.style.height = 13 + "px";
-				div.style.boxShadow = "0 0 15px " + shadowcolor[rdm2];
-				div.style.borderRadius = "50%";
-				document.body.appendChild(div);
+				Div.style.position = "absolute";
+				Div.style.left = x + "px";
+				Div.style.top = y + "px";
+				Div.style.width = 13 + "px";
+				Div.style.height = 13 + "px";
+				Div.style.boxShadow = "0 0 15px " + shadowcolor[rdm2];
+				Div.style.borderRadius = "50%";
+				Div.style.zIndex = "1000";
+				bgc.appendChild(Div);
 			
 				for(let i = 0 ; i < o ; i++){
-				setTimeout(function(){
-					document.body.removeChild(div); 
-				},150)
+					setTimeout(function(){
+						bgc.removeChild(Div); 
+					},150);
 				}
 			}
 		</script>
