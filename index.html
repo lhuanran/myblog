@@ -208,7 +208,7 @@
 				/* text-shadow: 4px 4px 2px white; */
 				animation: shining 4s infinite linear;
 			}
-			#turn{
+			#turn_right{
 				background-image: -webkit-linear-gradient(left, yellow,orange,green,yellow,orange,green,yellow);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
@@ -216,9 +216,31 @@
 				animation: shining 4s infinite linear;
 				border-radius: 2px;
 				position: relative;
-				top: 25vh;
+				top: -30vh;
+				left: 30vw;
+				order: -1;
 				box-shadow: 1px 1px 2px yellow;
 			}
+			/* #turn_right:hover{
+				box-shadow: 1px 1px 2px blue;
+			} */
+			#turn_left{
+				display: none;
+				background-image: -webkit-linear-gradient(left, yellow,orange,green,yellow,orange,green,yellow);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				-webkit-background-size: 200% 100%;
+				animation: shining 4s infinite linear;
+				border-radius: 2px;
+				position: relative;
+				top: -30vh;
+				left: 30vw;
+				order: -1;
+				box-shadow: 1px 1px 2px yellow;
+			}
+			/* #turn_left:hover{
+				box-shadow: 1px 1px 2px blue;
+			} */
 			#image{
 				position: absolute;
 				top: 0%;
@@ -350,7 +372,8 @@
 					</div>
 					<div id = "cover_show">
 						<div id = "typing" ><div id = "synopsis">我是一个大学牲，兼吃货，兼社恐，同时在这里分享生活和技术</div></div>
-						<div id = "turn">点我有惊喜</div>
+						<div id = "turn_right">>>></div>
+						<div id = "turn_left">>>></div>
 					</div>
 				</div>
 			</div>
@@ -463,17 +486,35 @@
 					}
 				}
 			}
-			turn.onclick = function(){
+			turn_right.onclick = function(){
 				let cover_show_deg = 0;
-				turn.style.boxShadow = "0px 0px 0px yellow";
-				turn.style.top = 25.3 + "vh";
+				turn_right.style.boxShadow = "0px 0px 0px yellow";
+				turn_right.style.top = -29.9 + "vh";
+				turn_right.style.left = 30.1 + "vw";
 				setTimeout(function(){
-					turn.style.boxShadow = "1px 1px 2px yellow";
-					turn.style.top = 25 + "vh";
+					turn_right.style.boxShadow = "1px 1px 2px yellow";
+					turn_right.style.top = -30 + "vh";
+					turn_right.style.left = 30 + "vw";
 					let cover_show_turn = setInterval(function(){
-						if (cover_show_deg === 91){ typing.style.display = "none"; turn.style.display = "none"; }
+						if (cover_show_deg === 91){ typing.style.display = "none"; turn_right.style.display = "none"; turn_left.style.display = "block";}
 						if (cover_show_deg === 181){ clearInterval(cover_show_turn); }
 						else{ cover_show.style.transform = "rotateY("+ -cover_show_deg++ +"deg)"; }
+					},1);
+				},300);
+			}
+			turn_left.onclick = function(){
+				let cover_show_deg = 180;
+				turn_left.style.boxShadow = "0px 0px 0px yellow";
+				turn_left.style.top = -29.9 + "vh";
+				turn_left.style.left = 29.9 + "vw";
+				setTimeout(function(){
+					turn_left.style.boxShadow = "1px 1px 2px yellow";
+					turn_left.style.top = -30 + "vh";
+					turn_left.style.left = 30 + "vw";
+					let cover_show_turn = setInterval(function(){
+						if (cover_show_deg === 89){ typing.style.display = "block"; turn_right.style.display = "block"; turn_left.style.display = "none";}
+						if (cover_show_deg === -1){ clearInterval(cover_show_turn); }
+						else{ cover_show.style.transform = "rotateY("+ -cover_show_deg-- +"deg)"; }
 					},1);
 				},300);
 			}
