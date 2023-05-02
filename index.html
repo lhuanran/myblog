@@ -146,7 +146,7 @@
 				height: 90vh;
 				/* background-color: greenyellow; */
 				transform-style: preserve-3d;
-				perspective: 2px;
+				perspective: 2000px;
 				overflow-x: hidden;
 				overflow-y: scroll;
 				/* display: flex;
@@ -186,16 +186,19 @@
 				height: 90vh;
 				background-color: rgba(248, 170, 213, 0.3);
 				display: flex;
+				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+				border-radius: 10px;
+				z-index: 200;
 			}
 			#typing{
-				animation: typing 8s steps(42, end) infinite, order 0.7s step-end infinite;
+				animation: order 0.7s step-end infinite;
 				overflow: hidden;
 				border-right: 2px solid transparent;
 				font-size: 1.5em;
 				height: 1.5em;
-				width: 70vw;
+				width: 5vw;
 			}
 			#synopsis{
 				background-image: -webkit-linear-gradient(left, purple,blue,green,purple,blue,green,purple);
@@ -205,6 +208,17 @@
 				/* text-shadow: 4px 4px 2px white; */
 				animation: shining 4s infinite linear;
 			}
+			#turn{
+				background-image: -webkit-linear-gradient(left, yellow,orange,green,yellow,orange,green,yellow);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				-webkit-background-size: 200% 100%;
+				animation: shining 4s infinite linear;
+				border-radius: 2px;
+				position: relative;
+				top: 25vh;
+				box-shadow: 1px 1px 2px yellow;
+			}
 			#image{
 				position: absolute;
 				top: 0%;
@@ -213,7 +227,7 @@
 				transform-style: preserve-3d;
 				/* perspective: 50px; */
 				/* background-color: darkcyan; */
-				z-index: 100;
+				z-index: -100;
 			}
 			.image{
 				position: relative;
@@ -225,42 +239,42 @@
 				left: -60%;
 				width: 65vw;
 				height: 35vw;
-				transform: rotateZ(-6deg) translateZ(-2px) scale(1.2);
+				transform: rotateZ(-6deg) translateZ(-2000px) scale(1.2);
 			}
 			#image2{
 				top: -5%;
 				left: 30%;
 				width: 70vw;
 				height: 40vw;
-				transform: rotateZ(5deg) translateZ(-1px) scale(1.1);
+				transform: rotateZ(5deg) translateZ(-1000px) scale(1.1);
 			}
 			#image3{
 				top: 0%;
 				left: -80%;
 				width: 70vw;
 				height: 40vw;
-				transform: rotateZ(3deg) translateZ(-3px) scale(1.3);
+				transform: rotateZ(3deg) translateZ(-3000px) scale(1.3);
 			}
 			#image4{
 				top: -5%;
-				left: 50%;
+				left: 60%;
 				width: 75vw;
 				height: 40vw;
-				transform: rotateZ(-6deg) translateZ(-4px) scale(1.4);
+				transform: rotateZ(-6deg) translateZ(-4000px) scale(1.4);
 			}
 			#image5{
 				top: 0%;
 				left: -120%;
 				width: 100vw;
 				height: 50vw;
-				transform: rotateZ(1deg) translateZ(-5px) scale(1.5);
+				transform: rotateZ(1deg) translateZ(-5000px) scale(1.5);
 			}
 			#image6{
 				top: -8%;
 				left: 50%;
 				width: 70vw;
 				height: 40vw;
-				transform: rotateZ(-2deg) translateZ(-1px) scale(1.1);
+				transform: rotateZ(-2deg) translateZ(-1000px) scale(1.1);
 			}
 			@keyframes lable_up{
 				100%{background-color: rgba(128,0,128,0.5); height: 100%; box-shadow: 3px 3px 10px purple; font-size: 2.5em;}
@@ -280,11 +294,6 @@
 			@keyframes shining {
 				0%{ background-position: 0 0;}
 				100% { background-position: -100% 0;}
-			}
-			@keyframes typing {
-				0%{ width: 0;}
-				70%{ width: 68vw;}
-				100%{ width: 0;}
 			}
 			@keyframes order{
 				0%{ border-color: transparent; }
@@ -341,6 +350,7 @@
 					</div>
 					<div id = "cover_show">
 						<div id = "typing" ><div id = "synopsis">我是一个大学牲，兼吃货，兼社恐，同时在这里分享生活和技术</div></div>
+						<div id = "turn">点我有惊喜</div>
 					</div>
 				</div>
 			</div>
@@ -351,9 +361,13 @@
 			let image_content = document.getElementById("image_content");
 			let content = document.getElementById("content");
 			let cover = document.getElementById("cover");
+			let cover_show = document.getElementById("cover_show");
+			let typing = document.getElementById("typing");
 			let point = document.getElementById("point");
 			let navigation_bar = document.getElementById("navigation_bar");
-			let min1 = 1,max1= 19, min2 = 1, max2 = 4, scroll_Top = 0, scroll_adjust = 1;
+			let turn = document.getElementById("turn");
+			let min1 = 1,max1= 19, min2 = 1, max2 = 4, scroll_Top = 0, scroll_adjust = 1,typing_width = 5, typing_fold, typing_unfold;
+			let fold = 0;
 			let num = new Array();
 			let shadowcolor = ["purple", "green", "blue", "orange", "yellow", "aqua", "gold", "goldyellow", "grey", "marron"];
 
@@ -396,28 +410,72 @@
 					behavior: "smooth"
 				});
 			}
-			image_content.onmousemove = function () {
-				let min2 = 0,max2 = 9;
-				let rdm2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
-				let Div = document.createElement("div");
-				let o = 10;
-				let x = event.clientX;
-				let y = event.clientY;
-				Div.style.position = "absolute";
-				Div.style.left = x + "px";
-				Div.style.top = y + "px";
-				Div.style.width = 13 + "px";
-				Div.style.height = 13 + "px";
-				Div.style.boxShadow = "0 0 15px " + shadowcolor[rdm2];
-				Div.style.borderRadius = "50%";
-				Div.style.zIndex = "1000";
-				bgc.appendChild(Div);
+			// image_content.onmousemove = function () {
+			// 	let min2 = 0,max2 = 9;
+			// 	let rdm2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
+			// 	let Div = document.createElement("div");
+			// 	let o = 10;
+			// 	let x = event.clientX;
+			// 	let y = event.clientY;
+			// 	Div.style.position = "absolute";
+			// 	Div.style.left = x + "px";
+			// 	Div.style.top = y + "px";
+			// 	Div.style.width = 13 + "px";
+			// 	Div.style.height = 13 + "px";
+			// 	Div.style.boxShadow = "0 0 15px " + shadowcolor[rdm2];
+			// 	Div.style.borderRadius = "50%";
+			// 	Div.style.zIndex = "100";
+			// 	bgc.appendChild(Div);
 			
-				for(let i = 0 ; i < o ; i++){
-					setTimeout(function(){
-						bgc.removeChild(Div); 
-					},150);
+			// 	for(let i = 0 ; i < o ; i++){
+			// 		setTimeout(function(){
+			// 			bgc.removeChild(Div);
+			// 		},150);
+			// 	}
+			// }
+			//鼠标移入事件
+			cover_show.onmouseover = function() {
+				if (typing.style.display != "none"){
+					if (fold === 0){
+						fold = 1;
+						clearInterval(typing_fold);
+						//alert(fold);
+						typing_unfold = setInterval( function(){
+							//alert(typing_width);
+							typing.style.width = typing_width + "vw";
+							if (typing_width <= 65){ typing_width++; }
+						}, 100 );
+					}
 				}
+			}
+			//鼠标移出事件
+			cover_show.onmouseout = function() {
+				if (typing.style.display != "none"){
+					if (fold === 1){
+						fold = 0;
+						clearInterval(typing_unfold);
+						// alert(fold);
+						typing_fold = setInterval( function(){
+							//alert(typing_width);
+							typing.style.width = typing_width + "vw";
+							if (typing_width >= 6){ typing_width--; }
+						}, 100);
+					}
+				}
+			}
+			turn.onclick = function(){
+				let cover_show_deg = 0;
+				turn.style.boxShadow = "0px 0px 0px yellow";
+				turn.style.top = 25.3 + "vh";
+				setTimeout(function(){
+					turn.style.boxShadow = "1px 1px 2px yellow";
+					turn.style.top = 25 + "vh";
+					let cover_show_turn = setInterval(function(){
+						if (cover_show_deg === 91){ typing.style.display = "none"; turn.style.display = "none"; }
+						if (cover_show_deg === 181){ clearInterval(cover_show_turn); }
+						else{ cover_show.style.transform = "rotateY("+ -cover_show_deg++ +"deg)"; }
+					},1);
+				},300);
 			}
 		</script>
 	</body>
